@@ -1,0 +1,72 @@
+\newglossaryentry{facade}
+{
+    name=facade,
+    description={The Facade pattern is a software design pattern that provides a simplified interface to a larger body of code, making it easier to use and understand. It is a structural pattern that involves creating a single class, known as the facade, which acts as a front-facing interface for a complex system of classes and components.}
+}
+\newglossaryentry{FaaS}
+{
+    name=FaaS,
+    description={FaaS stands for Function-as-a-Service, which is a cloud computing model where developers can create and deploy small, single-purpose functions that are executed on demand, in response to events or triggers.}
+}
+\newglossaryentry{serverless}
+{
+    name=serverless,
+    description={Serverless computing is a cloud computing model in which the cloud provider manages the infrastructure and automatically allocates computing resources as needed to execute and scale applications. In a serverless architecture, developers write and deploy code as small, independent functions that are triggered by specific events or requests, such as an HTTP request. The cloud provider then executes these functions on its own infrastructure, dynamically allocating computing resources and scaling automatically to meet demand. Because the cloud provider manages the infrastructure and abstracts away the underlying hardware and software, developers do not have to worry about managing servers, scaling infrastructure, or paying for idle resources, which can lead to reduced operational costs and increased agility.}
+}
+\newglossaryentry{WebAssembly}
+{
+    name=Wasm,
+    description={WebAssembly (abbreviated Wasm) is a safe, portable, low-level code format designed for efficient execution and compact representation. Its main goal is to enable high performance applications on the Web, but it does not make any Web-specific assumptions or provide Web-specific features, so it can be employed in other environments as well.}
+}
+\newglossaryentry{V8}
+{
+    name=V8,
+    description={V8 is a high-performance JavaScript engine developed by Google for use in their Chrome web browser and other applications. It is also used by Node.js to execute JavaScript code outside of a web browser. V8 is written in C++ and compiles JavaScript code to native machine code, providing significant performance benefits over interpreted JavaScript engines.}
+}
+\newglossaryentry{isolate}
+{
+    name=isolate,
+    description={The isolates runtime runs on the V8 engine, which is the same engine that powers Chromium and Node.js. The Workers runtime also supports many of the standard APIs that most modern browsers have.}
+}
+\newglossaryentry{LXC-Container}
+{
+    name=LXC-Container,
+    description={LXC (Linux Containers) is a lightweight virtualization technology that allows multiple isolated Linux systems, known as containers, to run on a single Linux host. LXC-Containers provide a way to run applications in an isolated environment with their own file system, network interface, and resource allocation. Each LXC-Container shares the host operating system kernel but runs its own isolated user space.}
+}
+\newglossaryentry{edge computing}
+{
+    name=edge computing,
+    description={Edge computing is the concept of bringing computation power closer to the end consumer. Due to the lower proximity between the server and the end device, this solution reduces network latency. Typical use cases are in the Internet of Things, mobile or gaming sectors where latency plays a huge role.}
+}
+\newglossaryentry{cloud computing}
+{
+    name=cloud computing,
+    description={According to the National Institute of Standards and Technology (NIST) definition of cloud computing is a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) that can be rapidly provisioned and released with minimal management effort or service provider interaction. This cloud model is composed of five essential characteristics, three service models, and four deployment models \cite{mell_2011_the}.}
+}
+\newglossaryentry{wasi}
+{
+    name=WASI,
+    description={The WebAssembly System Interface is not a monolithic standard system interface, but is instead a modular collection of standardized APIs. None of the APIs are required to be implemented to have a compliant runtime. Instead, host environments can choose which APIs make sense for their use cases \cite{webassembly_2023_webassemblywasi}.}
+}
+\newglossaryentry{LLVM}
+{
+    name=LLVM,
+    description={A toolkit used to build and optimize compilers. The LLVM Project consists of a set of modular and reusable compiler and toolchain technologies, which form a collection that can be utilized across various compilers and toolchains.}
+}
+\newglossaryentry{POSIX}
+{
+    name=POSIX,
+    description={Portable Operating System Interface is a set of standards defined by the IEEE for maintaining compatibility between operating systems.}
+}
+\newglossaryentry{libc}
+{
+    name=libc,
+    description={Short for C Standard Library, it is a library of standard functions that are a part of the C programming language, which define the functions used for file operations, input and output operations, string manipulation, and memory allocation etc.}
+}
+\newglossaryentry{JS glue code}
+{
+    name=JS glue code,
+    description={It is the JavaScript code that bridges the gap between the compiled WebAssembly module and the browser. It is responsible for interfacing with the browser's JavaScript engine, allowing communication between the WebAssembly module and the web application.}
+}
+
+\makeglossaries

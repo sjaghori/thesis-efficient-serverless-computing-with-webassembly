@@ -1,0 +1,353 @@
+%----------------------------------------------------------------
+%
+%  File    :  thesis.tex
+%
+%----------------------------------------------------------------
+
+% --- Setup for the document ------------------------------------
+
+%Class for a book like style:
+\documentclass[11pt,a4paper,oneside]{scrbook}
+%For a more paper like style use this class instead:
+%\documentclass[11pt,a4paper,oneside]{thesis}
+
+%input encoding for windows in utf-8 needed for Ä,Ö,Ü etc..:
+\usepackage[utf8]{inputenc}
+%input encoding for linux:
+%\usepackage[latin1]{inputenc}
+%input encoding for mac:
+%\usepackage[applemac]{inputenc}
+
+\usepackage[english]{babel}
+% for german use this line instead:
+%\usepackage[ngerman]{babel}
+
+%needed for font encoding
+\usepackage[T1]{fontenc}
+
+% want Arial? uncomment next two lines...
+%\usepackage{uarial}
+%\renewcommand{\familydefault}{\sfdefault}
+
+%some formatting packages
+\usepackage[bf,sf]{subfigure}
+\renewcommand{\subfigtopskip}{0mm}
+\renewcommand{\subfigcapmargin}{0mm}
+
+%For better font resolution in pdf files
+\usepackage{lmodern}
+
+\usepackage{url}
+
+\usepackage{glossaries}
+\input{sections/98_glossary}
+
+%\usepackage{latexsym}
+
+\usepackage{geometry} % define pagesize in more detail
+
+% --- Settings for header and footer ---------------------------------
+\usepackage{scrlayer-scrpage}
+\clearpairofpagestyles
+%\clearscrheadfoot
+\pagestyle{scrheadings}
+\automark{chapter}
+
+%Left header shows chapter and chapter name, will not display on first chapter page use \ihead*{\leftmark} to show on every page
+\ihead{\leftmark} 	
+%\ohead*{\rightmark}	%optional right header
+\ifoot*{Sasan Jaghori}		%left footer shows student name
+\ofoot*{\thepage}		%right footer shows pagination
+%---------------------------------------------------------------------
+
+\usepackage{colortbl} % define colored backgrounds for tables
+\usepackage{xcolor}
+\definecolor{frenchplum}{RGB}{129,20,83}
+\usepackage{courier} %for listings
+\usepackage{listings} % nicer code formatting
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, let, const, async, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{frenchplum}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]",
+  morestring=[b]`
+}
+\lstset{
+  numbers=left,
+  language=JavaScript,
+  basicstyle=\ttfamily,
+  breaklines=true
+}
+
+\usepackage{graphicx}
+  \pdfcompresslevel=9
+  \pdfpageheight=297mm
+  \pdfpagewidth=210mm
+  \usepackage[         % hyperref should be last package loaded
+    pdftex, 		   % needed for pdf compiling, DO NOT compile with LaTeX
+    bookmarks,
+    bookmarksnumbered,
+    linktocpage,
+    pagebackref,
+    pdfview={Fit},
+    pdfstartview={Fit},
+    pdfpagemode=UseOutlines,                 % open bookmarks in Acrobat
+  ]{hyperref}
+\DeclareGraphicsExtensions{.pdf,.jpg,.png}
+\usepackage{bookmark}
+
+
+
+\usepackage[title]{appendix}
+
+%paper format
+\geometry{a4paper,left=30mm,right=25mm, top=30mm, bottom=30mm}
+
+\setlength{\parskip}{3pt plus 1pt minus 0pt}       % vert. space before a paragraph
+
+\setcounter{tocdepth}{1}        % lowest section level entered in ToC
+\setcounter{secnumdepth}{2}     % lowest section level still numbered
+
+%package to force the position of the figures
+\usepackage{float}
+
+%Start of your document beginning with title page
+\begin{document}
+\frontmatter
+
+% --- Main Title Page ------------------------------------------------
+\begin{titlepage}
+\begin{picture}(50,50)
+\put(-70,40){\hbox{\includegraphics{images/logo.png}}}
+\end{picture}
+
+\vspace*{-5.8cm}
+
+\begin{center}
+
+\vspace{6.2cm}
+
+\hspace*{-1.0cm} {\LARGE \textbf{Efficient Serverless Computing with WebAssembly\\}}
+\vspace{0.2cm}
+%\hspace*{-1.0cm} Subtitle\\
+
+\vspace{2.0cm}
+
+\hspace*{-1.0cm} { \textbf{Master Thesis\\}}
+
+\vspace{0.65cm}
+
+\hspace*{-1.0cm} Submitted in partial fulfillment of the requirements for the degree of \\
+
+\vspace{0.65cm}
+
+\hspace*{-1.0cm} \textbf{Master of Science in Engineering\\}
+
+\vspace{0.65cm}
+
+\hspace*{-1.0cm} to the University of Applied Sciences FH Campus Wien \\
+\vspace{0.2cm}
+\hspace*{-1.0cm} Master Degree Program: Software Design and Engineering \\
+
+\vspace{1.6cm}
+
+\hspace*{-1.0cm} \textbf{Author:} \\
+\vspace{0.2cm}
+\hspace*{-1.0cm} Sasan Jaghori, B.Sc \\
+
+\vspace{0.7cm}
+
+\hspace*{-1.0cm} \textbf{Student identification number:}\\
+\vspace{0.2cm}
+\hspace*{-1.0cm} 2110838018 \\
+
+\vspace{0.7cm}
+
+\hspace*{-1.0cm} \textbf{Supervisor:} \\
+\vspace{0.2cm}
+\hspace*{-1.0cm} Dipl.-Ing. Georg Mansky-Kummert \\
+
+\vspace{0.7cm}
+
+% Reviewer if needed:
+%\hspace*{-1.0cm} \textbf{Reviewer: (optional)} \\
+%\vspace{0.2cm}
+%\hspace*{-1.0cm} Title first name surname \\
+
+
+\vspace{1.0cm}
+
+\hspace*{-1.0cm} \textbf{Date:} \\
+\vspace{0.2cm}
+\hspace*{-1.0cm} 31.05.2023 \\
+
+\end{center}
+\end{titlepage}
+
+\newpage
+
+\setcounter{page}{1}
+
+\vspace*{16cm}
+
+% --- Declaration of authorship ----------------------------------------------------
+\hspace*{-0.7cm} \underline{Declaration of authorship:}\\\\
+I declare that this Master Thesis has been written by myself. I have not used any other than the listed sources, nor have I received any unauthorized help.\\\\
+I hereby certify that I have not submitted this Master Thesis in any form (to a reviewer for assessment) either in Austria or abroad.\\\\
+Furthermore, I assure that the (printed and electronic) copies I have submitted are identical.
+\\\\\\
+Date: \hspace{6cm} Signature:\\
+
+% --- English Abstract ----------------------------------------------------
+\cleardoublepage
+\chapter*{Abstract}
+\input{abstract/en}
+
+
+% --- German Abstract ----------------------------------------------------
+
+\cleardoublepage
+\chapter*{Kurzfassung}
+\input{abstract/de}
+
+% --- Abbrevations ----------------------------------------------------
+\newpage\noindent
+\chapter*{List of Abbreviations}
+\vspace{0.65cm}
+
+\begin{table*}[htbp]
+		\begin{tabular}{ll}
+			AOT & Ahead-of-time compilation \\
+			DOM & Document Object Model \\
+   			JIT & Just-in-time compilation \\
+			LLVM & Low Level Virtual Machine \\
+			POSIX & Portable Operating System Interface \\
+			SIMD & Single Instruction Multiple Data \\
+   			VM & Virtual Machine \\
+			WASM & WebAssembly \\
+			WASI & WebAssembly System Interface \\
+			WAT  &  WebAssembly Text Format \\
+			WIT  &  WebAssembly Interface Type \\  
+		\end{tabular}
+\end{table*}
+
+% --- Key terms ----------------------------------------------------
+\newpage
+\chapter*{Key Terms}
+\vspace{0.65cm}
+
+\begin{itemize}
+	\setlength{\itemsep}{0pt}
+	\item[] WASM
+	\item[] WebAssembly
+	\item[] Serverless
+	\item[] Edge Computing
+	\item[] Cloud Computing
+	\item[] AWS Lambda
+ 	\item[] FaaS
+\end{itemize}
+
+% --- Table of contents autogenerated ------------------------------------
+\newpage
+\tableofcontents
+
+% --- Begin of Thesis ----------------------------------------------------
+\mainmatter
+\chapter{Introduction}
+\label{chap:intro}
+\input{sections/1_introduction}
+
+\chapter{WebAssembly (Wasm)}
+\label{chap:wasm}
+\input{sections/2_wasm}
+
+\chapter{Runtimes}
+\label{chap:runtimes}
+\input{sections/3_runtimes}
+
+\chapter{Simple POC WebAssembly Serverless Platform}
+\label{chap:poc}
+\input{sections/4_poc}
+
+\chapter{Benchmarks}
+\label{chap:benchmarks}
+\input{sections/5_benchmarks}
+
+\chapter{Platform Limitations}
+\label{chap:limitations}
+\input{sections/6_limitations}
+
+\chapter{Vendor lock-in}
+\label{chap:vendor-lock-in}
+\input{sections/7_vendor-lock-in}
+
+\chapter{Related Work}
+\label{chap:related-work}
+\input{sections/8_related-work}
+
+\chapter{Conclusion}
+\label{chap:conclusion}
+\input{sections/9_conclusion}
+
+\chapter{Future work}
+\label{chap:future-work}
+\input{sections/10_future-work}
+
+%\clearpage
+
+% --- Bibliography ------------------------------------------------------
+\newpage
+%IEEE Citation [1]
+\bibliographystyle{IEEEtran}
+\bibliography{master_thesis}
+%for alphanumeric citation eg.: [ABC19]
+%\bibliographystyle{alpha}
+\addcontentsline{toc}{chapter}{Bibliography}
+%\clearpage
+
+% --- Glossary ----------------------------------------------------
+
+%\newpage
+\label{chap:glossary}
+\printglossary
+\addcontentsline{toc}{chapter}{Glossary}
+%\clearpage
+
+
+% --- List of Figures ----------------------------------------------------
+
+\newpage
+\listoffigures
+\addcontentsline{toc}{chapter}{List of Figures}
+%\clearpage
+
+
+% --- List of Tables -----------------------------------------------------
+
+\newpage
+\listoftables
+\addcontentsline{toc}{chapter}{List of Tables}
+%\clearpage
+
+% --- Appendix A -----------------------------------------------------
+
+\newpage
+\backmatter
+\appendix
+\begin{appendices}
+\chapter{Appendix}
+\input{sections/99_appendices}
+
+
+\clearpage
+\end{appendices}
+
+\end{document}
