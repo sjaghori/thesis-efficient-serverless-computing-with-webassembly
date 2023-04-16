@@ -1,19 +1,27 @@
+Since the dot-com era, JavaScript has remained the only client-side language for web browsers. As the web platform gained popularity and its standard APIs expanded, developers became increasingly interested in using faster programming languages on the web. To run these languages on the web, they had to be compiled into a common format, in this case, JavaScript. However, JavaScript, a high-level, dynamically typed, interpreted language, was not intended for this purpose, leading to performance issues.
+
+In 2013, Mozilla engineers introduced a solution called asm.js, which focused on the parts of JavaScript that could be optimized ahead of time. This enabled C/C++ programs to be compiled into the asm.js target format and executed using a JavaScript runtime, achieving faster performance than equivalent JavaScript programs. However, benchmarks revealed that asm.js code ran about 1.5 times slower than the native code written in C++ \cite{zakai_2013_gap}.
+
+As the need for improved web performance persisted, asm.js was replaced by WebAssembly (wasm), introduced in 2015.
 “WebAssembly (abbreviated \Gls{WebAssembly}) is a safe, portable, low-level code format designed for efficient execution and compact representation. Its main goal is to enable high performance applications on the Web, but it does not make any Web-specific assumptions or provide Web-specific features, so it can be employed in other environments as well \cite[p.~1]{webassemblycommunitygroup_2023_webassembly}.”
 The Wasm standard is developed by W3C Working Group and W3C Community Group. 
-\begin{itemize}
-  \item \textbf{Fast}: 
-  \item \textbf{Safe}:
-  \item \textbf{Well-defined}:
-  \item \textbf{Hardware-independent}:
-  \item \textbf{Language Agnosticism}:
-  \item \textbf{Platform-independent}:
-\end{itemize}
+
+\section{Performance}
+
+
+% \begin{itemize}
+%   \item \textbf{Fast}: 
+%   \item \textbf{Safe}:
+%   \item \textbf{Well-defined}:
+%   \item \textbf{Hardware-independent}:
+%   \item \textbf{Language Agnosticism}:
+%   \item \textbf{Platform-independent}:
+% \end{itemize}
 
 \section{Specification}
 \label{sec:specification}
 
-phases: \href{https://github.com/WebAssembly/meetings/blob/main/process/phases.md}{https://github.com/WebAssembly}
-
+phases: \footnote{\url{https://github.com/WebAssembly/meetings/blob/main/process/phases.md}}
 
 \section{Implemented proposals}
 \label{sec:implemented-proposals}
@@ -114,7 +122,4 @@ This approach was effective in multi-user systems where administrators controlle
 The security aspect of WASI is vital to the universal nature of WebAssembly. The WASI standard was built on a capabilities-based security model, which means the host has to explicitly permit capabilities such as file system access and establishing network sockets. As a result, a WASI module cannot run arbitrary code with direct access to memory.
 
 % todo reference to a filesystem example wasmtime and wasmer
-
-
-
 
