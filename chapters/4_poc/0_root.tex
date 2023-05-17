@@ -1,3 +1,6 @@
+\chapter{POC WebAssembly Serverless Platform}
+\label{chap:poc}
+
 In this chapter, the proof of concept for a simple serverless platform using WebAssembly technology will be explored. The platform utilizes an HTTP server to direct HTTP requests to specific WebAssembly modules. The popular Rust web framework, "Actix-web," has been chosen for the HTTP server implementation due to its lightweight and fast nature. Furthermore, the proof of concept employs Wasmtime as the Wasm-WASI runtime. As mentioned in the previous chapter, Wasmtime offers excellent support for the WASI standard and integrates various programming languages such as C++, Rust, Go, JavaScript, and more.
 
 As Figure \ref{fig:poc} illustrates, this proof of concept assumes the availability of a function registry service that stores the ahead-of-time compiled Wasm binaries. Additionally, a serverless platform needs to be distributed; therefore, API gateways and load balancers are necessary to serve requests across the network. However, this proof of concept primarily focuses on the WebAssembly aspect of the platform, leaving the API gateway and load balancers outside the scope of the discussion.
@@ -12,7 +15,7 @@ As Figure \ref{fig:poc} illustrates, this proof of concept assumes the availabil
 %For this we need a WASI compliant Wasm modules, the fibonacci function from the previous chapter can be used here
 
 
-\begin{lstlisting}[frame=lines, caption=actix http server with a handler function to invoce the wasm modules, captionpos=b, language=JavaScript, showstringspaces=false]
+\begin{lstlisting}[frame=lines, style=Rust, caption={actix http server with a handler function to invoce the wasm modules}, showstringspaces=false, captionpos=b]
 #[actix_web::main]
 async fn main() -> io::Result<()> {
     HttpServer::new(|| App::new().service(handler))

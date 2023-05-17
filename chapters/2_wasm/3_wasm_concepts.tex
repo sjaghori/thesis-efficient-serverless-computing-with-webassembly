@@ -1,0 +1,11 @@
+\section{WebAssembly Concepts}
+\label{sec:wasm-concepts}
+
+WebAssembly modules follow several major concepts that are necessary to mention before going through the details of the WebAssembly specifications. These concepts are \cite{mozillacorporation_2023_webassembly}:
+
+\begin{itemize}
+  \item \textbf{Module}: A WebAssembly module is a binary file that contains a sequence of sections. Each section has a unique identifier and a payload. The module can be loaded and executed by a WebAssembly runtime. Furthermore, a Wasm module does not have a state, thus stateless and can be shared between different threads and workers. Moreover, it consists of imports and exports similar to ES modules.
+  \item \textbf{Memory}: In WebAssembly, memory is represented as a mutable, linear byte array that can dynamically grow in size. A Wasm memory can either be created within the module or imported from the host environment. A memory instance cannot be accessed by the host environment unless it is explicitly exported by the module or it was passed by the host initially. The size of a memory is measured in pages, a page has a size of 64KB. 
+  \item \textbf{Table}: A table is a data structure that holds a list of function references, which can be used to implement indirect function calls. Similar to a WebAssembly memory, tables can either be created within the module or imported from the host environment and it can grow in size. Important use cases for tables are indirect function calls and dynamic linking. Dynamic linking allows multiple modules to work together by sharing function references.
+  \item \textbf{Instance}: An instance is a stateful, executable representation of a WebAssembly module. It consists of the module's imports, exports, memory, functions and table. An instance can be created by instantiating a module. The instance can be used to execute the module's functions and access its memory and table. 
+\end{itemize}

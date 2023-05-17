@@ -1,0 +1,11 @@
+\section{WebAssembly Objectives}
+\label{sec:wasm-objectives}
+
+The WebAssembly standard is designed to meet the following objectives \cite{mozillacorporation_2023_webassembly}:
+\begin{itemize}
+  \item \textbf{Be fast and efficient}: WebAssembly modules can achieve near-native performance by having a compact binary format that is faster to decode compared to JavaScript parsing.
+  \item \textbf{Ensure readability and debuggability}: The binary format is not intended to be read or written by humans, but it does have a text format that is easy to read and debug. The conversion from the text format to the binary format and vice versa is possible. More about this in section \ref{subsec:wasm-text-format}.
+  \item \textbf{Maintain security}: The execution of WebAssembly modules are isolated from the host environment and other modules. Each module is executed in a sandboxed environment, meaning that the host environment has to explicitly grant access to resources outside the module, see section \ref{subsec:wasi-security-model}. 
+  \item \textbf{Preserve web compatibility}: The standard should not break the existing web APIs and it should maintain backward compatibility with older revisions of the standard.
+  \item \textbf{Be hardware and platform independent}: The WebAssembly standard does not make any specific hardware or platform assumptions about the host environment, it is designed to take advantage of the common hardware capabilities. Platform specific features can be added through standard system interface extensions, see section \ref{sec:wasi}.
+\end{itemize}

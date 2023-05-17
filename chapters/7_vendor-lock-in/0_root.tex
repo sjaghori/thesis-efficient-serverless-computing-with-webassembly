@@ -1,3 +1,6 @@
+\chapter{Vendor lock-in}
+\label{chap:vendor-lock-in}
+
 Cloud computing's vendor lock-in issue arises when customers become reliant (i.e., locked-in) on a specific cloud provider's technology implementation. This makes it challenging and costly to switch to another vendor due to legal constraints, technical incompatibilities, or significant expenses in the future. The issue of vendor lock-in in cloud computing has been identified as a major challenge because transferring applications and data to other providers is often an expensive and time-consuming process, making portability and interoperability essential considerations \cite{guest_2013_oracle}.
 
 There are two primary factors contributing to the difficulty of achieving interoperability, portability, compliance, trust, and security in cloud computing. The first is the absence of universally adopted standards, APIs, or interfaces that can leverage the ever-changing range of cloud services. The second is the lack of standardized practices for deployment, maintenance, and configuration \cite{oparamartins_2014_critical}, which creates challenges for ensuring consistency and compatibility across cloud environments. 
@@ -23,20 +26,20 @@ To evaluate the feasibility of switching \Gls{FaaS} providers, it is necessary t
 Each cloud computing service provider has its own unique function signature that must be adhered to for the code to be executed on their respective cloud platforms. These signatures can vary slightly between different providers. The subsequent Javascript code examples illustrate how input can be read from the event and responses can be sent back for each cloud provider. These examples assume that the function is triggered through an HTTP POST request and with a JSON body conaining "myName" property. \\
 The first example is an AWS Lambda Function, the body is within the event object, the function resolves the request by returning an object that contains a "statusCode" property along with a body.
 
-\begin{lstlisting}[frame=lines, caption=Basic AWS Lambda Function, captionpos=b, language=JavaScript, showstringspaces=false]
+\begin{lstlisting}[frame=lines, style=ES6, caption={Basic AWS Lambda Function}, showstringspaces=false, captionpos=b,]
 export const handler = async(event, context) => {
-    const input = JSON.parse(event.body);
-    return {
-        statusCode: 200,
-        body: JSON.stringify({
-            message: `Hello ${input.myName}`,
-        })
-    };
+  const input = JSON.parse(event.body);
+  return {
+      statusCode: 200,
+      body: JSON.stringify({
+          message: `Hello ${input.myName}`,
+      })
+  };
 };
 \end{lstlisting}
 The next \gls{serverless} function is running on Google Cloud, the difference is not only in the function signature, but also the fact that the function imports the framework.
 
-\begin{lstlisting}[frame=lines, caption=Basic Gen. 2 Google Cloud Functions, captionpos=b, language=JavaScript, showstringspaces=false]
+\begin{lstlisting}[frame=lines, style=ES6, caption={Basic Gen. 2 Google Cloud Functions}, showstringspaces=false, captionpos=b,]
 const functions = require("@google-cloud/functions-framework");
 
 functions.http("/", (req, res) => {
@@ -48,25 +51,25 @@ functions.http("/", (req, res) => {
 
 TODO: short description
 
-\begin{lstlisting}[frame=lines, caption=Basic Cloudflare Workers, captionpos=b, language=JavaScript, showstringspaces=false]
+\begin{lstlisting}[frame=lines, style=ES6, caption={Basic Cloudflare Workers}, showstringspaces=false, captionpos=b,]
 export default {
-    async fetch(request, env, ctx) {
-        const input = JSON.parse(await request.text());
-        return new Response(JSON.stringify({
-            message: `Hello, ${input.myName}`,
-        }), {
-            status: 200,
-            headers: {
-                "content-type": "application/json",
-            },
-        });
-    },
+  async fetch(request, env, ctx) {
+      const input = JSON.parse(await request.text());
+      return new Response(JSON.stringify({
+          message: `Hello, ${input.myName}`,
+      }), {
+          status: 200,
+          headers: {
+              "content-type": "application/json",
+          },
+      });
+  },
 };
 \end{lstlisting}
 
 TODO: short description
 
-\begin{lstlisting}[frame=lines, caption=Basic Fastly Compute@Edge, captionpos=b, language=JavaScript, showstringspaces=false]
+\begin{lstlisting}[frame=lines, style=ES6, caption={Basic Fastly Compute@Edge}, showstringspaces=false, captionpos=b,]
 addEventListener("fetch", (event) => event.respondWith(handleRequest(event)));
 
 async function handleRequest(event) {
@@ -92,7 +95,7 @@ The facade layer provides a simplified interface that abstracts the underlying v
 SvelteKit is a modern web framework that effectively demonstrates the use of the Adapter pattern for deployment. Before deploying a SvelteKit application, it must be adapted to the specific deployment target by selecting an appropriate adapter in the configuration. This allows the application to be bundled with the platform-specific configuration \cite{sveltecommunity_2023_adapter}. 
 The code snippet below illustrates the adapter configuration of a SvelteKit application, which enables the framework to be adapted to various cloud providers and allows the community to create new adapters. In this case, the deployment target is a Cloudflare Workers \gls{serverless} function.
 
-\begin{lstlisting}[frame=lines, caption=svelte.config.js SvelteKit adapter configuration, captionpos=b, language=JavaScript, showstringspaces=false]
+\begin{lstlisting}[frame=lines, style=ES6, caption={svelte.config.js SvelteKit adapter configuration}, showstringspaces=false, captionpos=b,]
 import adapter from '@sveltejs/adapter-cloudflare-workers';
  
 /** @type {import('@sveltejs/kit').Config} */

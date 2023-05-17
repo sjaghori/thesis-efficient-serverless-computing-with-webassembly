@@ -1,0 +1,190 @@
+%
+% ECMAScript 2015 (ES6) definition by Gary Hammock
+% Reference: https://github.com/ghammock/LaTeX_Listings_JavaScript_ES6
+
+\lstdefinelanguage[ECMAScript2015]{JavaScript}[]{JavaScript}{
+  morekeywords=[1]{await, async, case, catch, class, const, default, do,
+    enum, export, extends, finally, from, implements, import, instanceof,
+    let, static, super, switch, throw, try},
+  morestring=[b]` % Interpolation strings.
+}
+
+%
+% JavaScript version 1.1 by Gary Hammock
+%
+% Reference:
+%   B. Eich and C. Rand Mckinney, "JavaScript Language Specification
+%     (Preliminary Draft)", JavaScript 1.1.  1996-11-18.  [Online]
+%     http://hepunx.rl.ac.uk/~adye/jsspec11/titlepg2.htm
+%
+
+\lstdefinelanguage{JavaScript}{
+  morekeywords=[1]{break, continue, delete, else, for, function, if, in,
+    new, return, this, typeof, var, void, while, with},
+  % Literals, primitive types, and reference types.
+  morekeywords=[2]{false, null, true, boolean, number, undefined,
+    Array, Boolean, Date, Math, Number, String, Object},
+  % Built-ins.
+  morekeywords=[3]{eval, parseInt, parseFloat, escape, unescape},
+  sensitive,
+  morecomment=[s]{/*}{*/},
+  morecomment=[l]//,
+  morecomment=[s]{/**}{*/}, % JavaDoc style comments
+  morestring=[b]',
+  morestring=[b]"
+}[keywords, comments, strings]
+
+
+\lstalias[]{ES6}[ECMAScript2015]{JavaScript}
+
+% Requires package: color.
+\definecolor{mediumgray}{rgb}{0.3, 0.4, 0.4}
+\definecolor{mediumblue}{rgb}{0.0, 0.0, 0.8}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{darkviolet}{rgb}{0.58, 0.0, 0.83}
+\definecolor{royalblue}{rgb}{0.25, 0.41, 0.88}
+\definecolor{crimson}{rgb}{0.86, 0.8, 0.24}
+
+\lstdefinestyle{JSES6Base}{
+  backgroundcolor=\color{white},
+  basicstyle=\ttfamily,
+  breakatwhitespace=false,
+  breaklines=false,
+  captionpos=b,
+  columns=fullflexible,
+  commentstyle=\color{mediumgray}\upshape,
+  emph={},
+  emphstyle=\color{crimson},
+  extendedchars=true,  % requires inputenc
+  fontadjust=true,
+  identifierstyle=\color{black},
+  keepspaces=true,
+  keywordstyle=\color{mediumblue},
+  keywordstyle={[2]\color{darkviolet}},
+  keywordstyle={[3]\color{royalblue}},
+  numbers=left,
+  numbersep=5pt,
+  numberstyle=\tiny\color{black},
+  rulecolor=\color{black},
+  showlines=true,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  stringstyle=\color{forestgreen},
+  tabsize=2,
+  title=\lstname,
+  upquote=true  % requires textcomp
+}
+
+\lstdefinestyle{JavaScript}{
+  language=JavaScript,
+  style=JSES6Base,
+  basicstyle=\ttfamily,
+  breaklines=true
+}
+\lstdefinestyle{ES6}{
+  language=ES6,
+  style=JSES6Base,
+  numbers=left,
+  basicstyle=\ttfamily,
+  breaklines=true
+}
+
+% Rust language
+
+\lstdefinelanguage{Rust}{
+  morekeywords=[1]{fn, break, continue, else, for, if, in, loop, match, return,
+    while},
+  % Literals, primitive types, and reference types.
+  morekeywords=[2]{false, true, bool, char, i8, i16, i32, i64, isize, u8, u16,
+    u32, u64, usize, f32, f64, str, String, Option, Some, None, Result, Ok,
+    Err},
+  % Built-ins.
+  morekeywords=[3]{assert!, assert_eq!, assert_ne!, cfg!, column!, compile_error!,
+    concat!, concat_idents!, debug_assert!, debug_assert_eq!, debug_assert_ne!,
+    env!, eprint!, eprintln!, file!, format!, format_args!, include!, include_bytes!,
+    include_str!, line!, module_path!, option_env!, panic!, print!, println!,
+    select!, stringify!, thread_local!, try!, unimplemented!, unreachable!, vec!,
+    write!, writeln!, macro_rules!, assert, assert_eq, assert_ne, cfg, column,
+    compile_error, concat, concat_idents, debug_assert, debug_assert_eq,
+    debug_assert_ne, env, eprint, eprintln, file, format, format_args, include,
+    include_bytes, include_str, line, module_path, option_env, panic, print,
+    println, select, stringify, thread_local, try, unimplemented, unreachable, vec,
+    write, writeln},
+  morecomment=[s]{/*}{*/},
+  morecomment=[l]//,
+  morecomment=[s]{/**}{*/}, % JavaDoc style comments
+  morestring=[b]',
+  morestring=[b]"
+}[keywords, comments, strings]
+
+\lstdefinestyle{Rusty}{
+  backgroundcolor=\color{white},
+  basicstyle=\ttfamily,
+  breakatwhitespace=false,
+  breaklines=false,
+  captionpos=b,
+  columns=fullflexible,
+  commentstyle=\color{mediumgray}\upshape,
+  emph={},
+  emphstyle=\color{crimson},
+  extendedchars=true,  % requires inputenc
+  fontadjust=true,
+  identifierstyle=\color{black},
+  keepspaces=true,
+  keywordstyle=\color{mediumblue},
+  keywordstyle={[2]\color{darkviolet}},
+  keywordstyle={[3]\color{royalblue}},
+  numbers=left,
+  numbersep=5pt,
+  numberstyle=\tiny\color{black},
+  rulecolor=\color{black},
+  showlines=true,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  stringstyle=\color{forestgreen},
+  tabsize=2,
+  title=\lstname,
+  upquote=true  % requires textcomp
+}
+
+\lstdefinestyle{Rust}{
+  language=Rust,
+  style=Rusty,
+  basicstyle=\ttfamily,
+  breaklines=true
+}
+
+% Wasm language reference: https://github.com/frederikspang/webassembly-lstlisting/blob/master/wasm-listing.tex
+
+\lstdefinelanguage{WebAssembly}{
+  sensitive,
+  otherkeywords={},
+  morekeywords=[1]{i32,f32,i64,f64,anyfunc},
+  keywordstyle={[1]\color{darkviolet}},
+  morekeywords=[2]{0},
+  keywordstyle={[2]\color{mediumblue}},
+  morekeywords=[3]{add,const}
+  keywordstyle={[3]\color{bluemunsell}},
+  morekeywords=[4]{},
+  keywordstyle={[4]\color{candypink}},
+  morekeywords=[5]{module, func, param, result, global, get_global, mut, set_global, export, import, memory, data, get_local, set_local, elem, table, call,call_indirect, type, block, loop, br, br_if, br_table, return, if, then, else, end, drop, select, nop, unreachable, current_memory, grow_memory, i32.load, i32.store, i32.const, i32.add, i32.sub, i32.mul, i32.div_s, i32.div_u, i32.rem_s, i32.rem_u, i32.and, i32.or, i32.xor, i32.shl, i32.shr_s, i32.shr_u, i32.rotl, i32.rotr, i32.eq, i32.ne, i32.lt_s, i32.lt_u, i32.le_s, i32.le_u, i32.gt_s, i32.gt_u, i32.ge_s, i32.ge_u, i32.clz, i32.ctz, i32.popcnt, i32.eqz, i64.load, i64.store, i64.const, i64.add, i64.sub, i64.mul, i64.div_s, i64.div_u, i64.rem_s, i64.rem_u, i64.and, i64.or, i64.xor, i64.shl, i64.shr_s, i64.shr_u, i64.rotl, i64.rotr, i64.eq, i64.ne, i64.lt_s, i64.lt_u, i64.le_s, i64.le_u, i64.gt_s, i64.gt_u, i64.ge_s, i64.ge_u, i64.clz, i64.ctz, i64.popcnt, i64.eqz, f32.load, f32.store, f32.const, f32.add, f32.sub, f32.mul, f32.div, f32.min, f32.max, f32.copysign, f32.abs, f32.neg, f32.ceil, f32.floor, f32.trunc, f32.nearest, f32.sqrt, f32.eq, f32.ne, f32.lt, f32.le, f32.gt, f32.ge, f64.load, f64.store, f64.const, f64.add, f64.sub, f64.mul, f64.div, f64.min, f64.max, f64.copysign, f64.abs, f64.neg, f64.ceil, f64.floor, f64.trunc},
+  keywordstyle={[5]\color{royalblue}},
+  morekeywords=[6]{=,;},
+  keywordstyle={[6]\color{forestgreen}},
+  morekeywords=[7]{(,),[,],.},
+  keywordstyle={[7]\color{black}},
+  numberstyle=\tiny\color{black},
+  rulecolor=\color{black},
+  stringstyle=\color{forestgreen},
+  morecomment=[s]{(;}{;)},
+  morecomment=**[l][\itshape\color{mediumgray}]{;;},
+}
+
+\lstdefinestyle{Wasm}{
+  language=WebAssembly,
+  style=Rusty,
+  basicstyle=\ttfamily,
+  breaklines=true
+}
