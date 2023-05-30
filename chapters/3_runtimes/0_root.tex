@@ -15,7 +15,9 @@ Table \ref{tab:runtime-overview} presents an overview of the most popular WebAss
 \section{Wasmtime}
 \label{sec:wasmtime}
 
-Wasmtime \cite{bytecodealliance_2022_wasmtime} is the official runtime of the Bytecode Alliance. This runtime, written in the Rust programming language, provides a Rust-based API for embedding within a Rust application. Additionally, it supports WASI out of the box. As mentioned in Chapter \ref{chap:intro}, the Bytecode Alliance is a consortium of individuals from Mozilla, Fastly, and Intel, who are working on the WebAssembly standard and the WebAssembly System Interface (WASI).
+Wasmtime \cite{bytecodealliance_2022_wasmtime} is the official runtime of the Bytecode Alliance. This runtime, written in the Rust programming language, provides a Rust-based API for embedding within a Rust application. Additionally, it supports WASI out of the box. Wasmtime's default compilation model is JIT, but it also supports AOT compilation. The runtime supports both cranelift and \gls{LLVM} backends for JIT and AOT compilation (see table \ref{tab:runtime-overview}).
+
+As mentioned in Chapter \ref{chap:intro}, the Bytecode Alliance is a consortium of individuals from Mozilla, Fastly, and Intel, who are working on the WebAssembly standard and the WebAssembly System Interface (WASI).
 
 \section{Wasmer}
 \label{sec:wasmer}
@@ -57,6 +59,8 @@ The following figure \ref{fig:v8-isolates} shows how a single engine can have ma
 Both \gls{V8} isolates and WebAssembly are similar in the way that they both execute code in a sandboxed environment. However, a V8 isolate is a JavaScript powered worker, while WebAssembly on the other hand is a binary instruction format. On the bright side, a V8 engine can include a WebAssembly runtime, which means that a V8 based cloud providers will be able to support multiple languages through WebAssembly. 
 
 When it comes to performance, according to Lin Clark's article on the release of Wasmtime \cite{clark_2022_wasmtime}, "a JS isolate startup time is about 5 milliseconds while a WebAssembly runtime startup time is about 50 microseconds. She then writes that WebAssembly is more lightweight and therefore, it can have many more instances running at the same time compared to other coarse-grained isolates". 
+
+We will compare the performance of V8 isolates to the performance of WebAssembly runtimes in Chapter \ref{chap:evalution} and measure the startup time of both approaches. 
 
 \section{Serverless Requirements}
 \label{sec:serverless-requirements}

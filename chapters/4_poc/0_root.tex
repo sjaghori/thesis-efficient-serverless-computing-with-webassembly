@@ -54,7 +54,7 @@ fn invoke_wasm_module(wasm_module_name: String, params: HashMap<String, String>)
 }
 \end{lstlisting}
 %
-Directly after, we then call the \texttt{run\_wasm\_module} function shown in \ref{lst:poc-start}. This is where the linker links the module with the newly created instance. The instance is used to search for the start function, the "\_start" function is the starting point of the Wasm modules. It will call the function and return the result. The result is then stored in the buffer and returned to the caller.
+Directly after, we then call the \texttt{run\_wasm\_module} function shown in listing \ref{lst:poc-start}. This is where the linker links the module with the newly created instance. The instance is used to search for the start function, the "\_start" function is the starting point of the Wasm modules. It will call the function and return the result. The result is then stored in the buffer and returned to the caller.
 %
 \begin{lstlisting}[frame=lines, style=Rust, caption={calling the wasm start function}, showstringspaces=false, label={lst:poc-start}, captionpos=b]
 fn run_wasm_module(
@@ -87,7 +87,8 @@ Hello World!
 
 The result contains the response which, in this case is "Hello World!" and the measured time until the response was received. The measured time is around 10 milliseconds and a deviation of ±15\%. The response time is quite fast, but we should consider the following points:
 \begin{itemize}
-    \item The server is running on a local machine, with more resources (M1 Pro CPU and 32 GB RAM) than a typical \gls{edge computing} device
+    \item The server is running on a local machine, therefore it does not take dns lookup, tcp handshake, load balancing overhead and other network related overheads into account
+    \item The system has more resources (M1 Pro CPU and 32 GB RAM) than a typical \gls{edge computing} device
     \item The server lacks various features typically associated with a \gls{serverless} platform, therefore it has less overhead than a typical serverless platform
     \item The Wasm module is very simple and does not contain any heavy computation
     \item The large portion of the response time is caused by the Actix Web framework
