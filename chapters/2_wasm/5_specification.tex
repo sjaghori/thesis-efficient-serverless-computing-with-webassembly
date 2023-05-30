@@ -1,9 +1,10 @@
 \section{WebAssembly Specification}
 \label{sec:wasm-specification}
 
-The Wasm standard is developed by W3C Working Group (WG) and W3C Community Group (CG) \cite{webassemblycommunitygroup_2023_webassembly}. The WebAssembly specification document \cite{webassemblycommunitygroup_2023_webassembly} focuses on Wasm's core Instruction Set Architecture layer, defining the instruction set, binary encoding, validation, execution semantics, and textual representation. However, it does not specify how WebAssembly programs interact with the execution environment or how they are invoked within that environment \cite{webassemblycommunitygroup_2023_webassembly}.
+The \gls{WebAssembly} standard is developed by W3C Working Group (WG) and W3C Community Group (CG) \cite{webassemblycommunitygroup_2023_webassembly}. The WebAssembly specification document \cite{webassemblycommunitygroup_2023_webassembly} focuses on Wasm's core Instruction Set Architecture layer, defining the instruction set, binary encoding, validation, execution semantics, and textual representation. However, it does not specify how WebAssembly programs interact with the execution environment or how they are invoked within that environment \cite{webassemblycommunitygroup_2023_webassembly}.
 
-From creating a proposal to fully integrating it into WebAssembly core specification, it must process through several phases. Each proposal follows this progression \cite{webassemblyw3c_2023_webassembly}:
+%The MVP version of WebAssembly aimed for language features that were common to all programming languages, everything else was left to be added in the post MVP versions \cite{sletten_2021_webassembly}. 
+The WebAssembly specification gets extended through proposals. From creating a proposal to fully integrating it into WebAssembly core specification, it must process through several phases. Each proposal follows this progression \cite{webassemblyw3c_2023_webassembly}:
 \begin{itemize}
   \item \textbf{0. Pre-Proposal [Individual]}: An individual files an issue on the design repository to discuss the idea. The idea is then discussed and championed by one or more members. 
   The proposal's general interest is voted on by the Community Group to ensure its scope and viability.
@@ -13,31 +14,34 @@ From creating a proposal to fully integrating it into WebAssembly core specifica
   \item \textbf{3. Implementation Phase [CG + WG]}: WebAssembly runtimes implement the feature, the spec document is updated with full English prose and formalization, and the reference interpreter is updated with a complete implementation. Toolchains implement the feature, and any remaining open questions are resolved.
   \item \textbf{4. Standardize the Feature [WG]}: The feature is handed over to the Working Group, which discusses the feature, considers edge cases, and confirms consensus on its completion. 
   The Working Group periodically polls on the feature's "ship-worthiness." If only minor changes are needed, they are made; otherwise, the feature is sent back to the Community Group.
-  \item \textbf{5. The Feature is Standardized [WG]}: Once consensus is reached among Working Group members that the feature is complete, editors merge the feature into the main branch of the primary spec repository.
+  \item \textbf{5. The Feature is Standardized [WG]}: Once consensus is reached among Working Group members that the feature is complete, editors merge the feature into the main branch of the primary spec repository of WebAssembly.
 \end{itemize}
 
 Throughout these phases, proposals are refined, adjusted, and tested to ensure their seamless integration with the existing WebAssembly specification. The following table \ref{tab:active-proposals} lists the active proposals and their current phase. The proposal repository \cite{webassemblywg_2023_webassembly} contains more information about each proposal, including the proposal's current phase, champion, and links to the proposal's repository and design document, furthermore, the repository also contains a list of all the proposals that have been merged into the WebAssembly core specification.
 
+In the next three sections, we will elaborate two proposals that have been already integrated into the WebAssembly core specification and one that is still an active proposal. The first proposal is the multi-value return, which allows functions to return multiple values a common feature in modern programming languages. The second proposal is the reference types, which allows WebAssembly to handle complex data types \cite{couriol_2020_webassembly}. The third proposal is the \gls{WebAssembly} GC proposal, which depends on the reference types proposal and adds garbage collection to WebAssembly and thereby expanding the range of languages that can be compiled to WebAssembly. These proposals were especially chosen because they make the WebAssembly target more accessible to a broader range of languages and use cases.
+
 \input{tables/tab_active_proposals.tex}
 
-\subsection{Multi-Value Return}
+\section{Multi-Value Return}
+\label{sec:multi-value-return}
+
 In modern programming languages that support tuples, like Kotlin, Rust or Python, developers can effortlessly bundle several values into a single structure for returning from a function. 
 Simple tasks, such as switching a pair of values or sorting an array, become challenging since they must be performed within the linear memory block. 
 Some arithmetic functions, including modular operations and carry bits, can also yield multiple values.
 
-Apart from function return values, another limitation in the WebAssembly MVP is that instruction sequences, such as conditional blocks and loops, cannot consume or return more than one result. 
+Apart from functions that return tuples or multiple values, another limitation in the WebAssembly MVP is that conditional blocks and loops, in the code base cannot process or return more than one result \cite{sletten_2021_webassembly}. 
 It would be equally intriguing to exchange values, perform arithmetic with overflow, or receive a multi-value tuple response in these scenarios as well. 
 Furthermore, compilers are no longer required to jump through hoops when generating multiple stack values for core WebAssembly. This results in smaller generated bytecode and consequently, faster loading times and brings an extension type which is common in some programming languages like Rust or Python. Currently, the proposal has been already integrated into the WebAssembly core specification \cite{webassemblywg_2023_webassembly}. 
 
-This proposal introduces a new type of arithmetic instruction "i32.divmod" which takes a numerator and divisor and returns the quotient and remainder. Moreover, it enables multiple values to stay on the stack without needing to be copied into linear memory.
+This proposal introduces a new type of arithmetic instruction "i32.divmod" \cite{fitzgerald_2019_multivalue, webassemblycommunitygroup_2023_webassembly} which takes a numerator and divisor and returns the quotient and remainder. Moreover, it enables multiple values to stay on the stack without needing to be copied into linear memory.
 
 The most effective way to demonstrate the proposal is by presenting a straightforward example. In example \ref{code:multi-values}, we have a WAT file with an exported function called "reverseSub" that subtracts the second parameter from the first one and returns the result. 
 
-Firstly, we define a module that contains two functions. The first one is an internal function called "swap" that takes two i32 (32-bit integer) parameters and returns them in reverse order. The second function is the one that we want to export and is called "reverseSub". It takes two i32 parameters and returns an i32 value. An exported function, means it will be accessible outside the WebAssembly module. notice that "local.get 0" and "local.get 1" instructions are used to get the first and second parameters respectively. The "call \$swap" instruction calls the "swap" function and passes the two parameters to it. Finally, the "i32.sub" instruction subtracts the second parameter from the first one and returns the result.
+Firstly, we define a module that contains two functions. The first one is an internal function called "swap" that takes two i32 (32-bit integer) parameters and returns them in reverse order. The second function is the one that we want to export and is called "reverseSub". It takes two 32 bit integer (i32) parameters and returns an i32 value. An exported function, means it will be accessible outside the WebAssembly module. notice that "local.get 0" and "local.get 1" instructions are used to get the first and second parameters respectively. The "call \$swap" instruction calls the "swap" function and passes the two parameters to it. Finally, the "i32.sub" instruction \cite{webassemblycommunitygroup_2023_webassembly} subtracts the second parameter from the first one and returns the result.
 
 \begin{lstlisting}[frame=lines, style=Wasm, caption={A reverse subtraction function that demonstrates the proposal for returning multiple values}, showstringspaces=false, captionpos=b, label=code:multi-values]
-;; reverseSub.wat
-(module
+(module ;; reverseSub.wat
   (func $swap (param i32 i32) (result i32 i32)
     local.get 1
     local.get 0)
@@ -50,10 +54,12 @@ Firstly, we define a module that contains two functions. The first one is an int
 )
 \end{lstlisting}
 
-\subsection{Reference Types}
-\label{subsec:reference-types}
+\section{Reference Types}
+\label{sec:reference-types}
 
-Before the introduction of reference types, WebAssembly only supported four primitive value types: 32-bit integers, 64-bit integers, 32-bit floating-point numbers, and 64-bit floating-point numbers. With the introduction of reference types, WebAssembly capabilities are extended to include garbage-collected references. This will enable other proposals such as the garbage collection proposal, type import proposal \ref{tab:active-proposals} and more to utilize reference types without the need for glue code or dangerous workarounds. For instance the host stores objects in a side table and passes the indexes to the Wasm module. The Wasm module then uses these indexes to retrieve the objects from the side table. The usage of side tables requires glue code and is error-prone. Moreover, the glue code needs to be written in the host's language, making the Wasm module less portable.
+Before the introduction of reference types, WebAssembly only supported four primitive value types \cite{webassemblycommunitygroup_2023_webassembly}: 32-bit integers, 64-bit integers, 32-bit floating-points, and 64-bit floating-point numbers. With the introduction of reference types, WebAssembly capabilities are extended to include garbage-collected references. This will enable other proposals \cite{couriol_2020_webassembly} such as the garbage collection proposal, type import proposal (see table \ref{tab:active-proposals}) and more to utilize reference types without the need for glue code or dangerous workarounds. 
+
+For instance, as Nick Fitzgerald noted in his publication \cite{fitzgerald_2020_webassembly}, the host stores objects in a side table and passes the indexes to the Wasm module. The Wasm module then uses these indexes to retrieve the objects from the side table. The usage of side tables requires glue code and is error-prone. Moreover, the glue code needs to be written in the host's language, making the Wasm module less portable.
 
 The reference types proposal makes it possible for the host to specify and pass opaque handles to WebAssembly modules. These handles can be used to reference objects in the host environment, such as DOM nodes of a web page, a file handle or even open connection to a database. 
 
@@ -72,7 +78,39 @@ As mentioned in the first bullet point, \texttt{externref} has two beneficial pr
 
 %TODO: Add example of how to use reference types
 
-
-\section{Garbage Collector Proposal}
+\section{Garbage Collection Proposal (Wasm GC)}
 \label{sec:gc-proposals}
 
+The garbage collection proposal \cite{webassemblycommunity_2023_gc} is currently under active development. This is one of the most anticipated proposals since it will enable developers to use managed-memory languages such as Kotlin, Java, Dart and many more to the WebAssembly ecosystem. 
+
+Prior to this proposal, managed-memory languages have to ship and instantiate their own garbage collector every time the app loads, thus, increasing the \gls{WebAssembly} module size and increasing the startup time, even when every standard browser already has a garbage collector. Figure \ref{fig:wasm-gc-1} illustrates this problem, marked as "\#1 bloat problem", very well. Another issue is the fact that developers need to know how large the heap is going to be, to avoid running out of memory. A typical thing todo is to allocate a large amount of memory and hope that it is enough. This architecture treats the Wasm module as a separate entity from the host environment, even though it might reference objects in the host environment. This brings us to the next issue, marked as "\#2 split brain problem", there is no guarantee that the references in the JavaScript Heap are still valid, because there is no way to inform the garbage collector that the Wasm module is no longer using the reference or vice versa. This is a problem because the garbage collector might free the memory that the reference is pointing to, which will result in a dangling pointer. 
+
+Even supposing that developers keep the references on the Wasm module side, there is still the possibility that we might need the JavaScript heap, due to the fact that the Wasm module might need to call Web APIs. Web APIs accept only JavaScript objects that live on the JavaScript heap. 
+%
+\begin{figure}[htbp]
+  \centering
+      \includegraphics[width=1\linewidth]{images/wasm/wasm_gc_1.drawio.pdf}
+  \caption{Wasm module without garbage collection proposal based on \cite{sekhar_2023_mobile}}
+  \label{fig:wasm-gc-1}
+\end{figure}
+%
+The Wasm GC proposal creates a new extension that in effect shares a joint heap between JavaScript and WebAssembly GC code. This way the managed-memory code can allocate objects on the joint heap and when the JavaScript garbage collector runs, it will also collect the WebAssembly GC memory, because they are using the same heap memory (see figure \ref{fig:wasm-gc-2}). Furthermore, depending on the runtime implementation, the runtime can return the unused memory back to the operating system to ensure the efficiency and responsiveness of the application \cite{sekhar_2023_mobile}. 
+
+This means that the Wasm module doesn't have to include it's own garbage collector, which will reduce the Wasm module size and startup time. Moreover, the Wasm module can easily grow or shrink the memory based on consumption. 
+
+To summarize, according to Vivek Sekhar in Wasm I/O 2023 conference, the garbage collection proposal brings the following three benefits \cite{sekhar_2023_mobile}:
+%
+\begin{itemize}
+  \item \textbf{Smaller binaries for managed-memory languages}: Language runtimes no longer need to ship code for garbage collection, the host's JavaScript garbage collector will collect WebAssembly GC memory as well.
+  \item \textbf{Faster interop with JavaScript code and Web APIs}: WasmGC objects can be passed by reference to JavaScript code and Web APIs like the DOM, Canvas, WebGL and WebGPU. This reduces the need to copy objects between the JavaScript and WebAssembly memories.
+  \item \textbf{Resizable memory footprint}: Additional memory is allocated to a WasmGC module as needed. Unused memory can be returned to the host environment.
+\end{itemize}
+%
+\begin{figure}[htbp]
+  \centering
+      \includegraphics[width=1\linewidth]{images/wasm/wasm_gc_2.drawio.pdf}
+  \caption{Wasm module with garbage collection proposal based on \cite{sekhar_2023_mobile}}
+  \label{fig:wasm-gc-2}
+\end{figure}
+%
+Even though the garbage collection proposal is still under active development, the Kotlin team has already rolled out an experimental compiler based on the proposal \cite{kotlin_2023_kotlin}.

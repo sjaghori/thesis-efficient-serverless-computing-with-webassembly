@@ -168,7 +168,7 @@
 
 \hspace*{-1.0cm} \textbf{Date:} \\
 \vspace{0.2cm}
-\hspace*{-1.0cm} 31.05.2023 \\
+\hspace*{-1.0cm} 01.06.2023 \\
 
 \end{center}
 \end{titlepage}
@@ -177,15 +177,21 @@
 
 \setcounter{page}{1}
 
-\vspace*{16cm}
+\vspace*{15cm}
 
 % --- Declaration of authorship ----------------------------------------------------
 \hspace*{-0.7cm} \underline{Declaration of authorship:}\\\\
 I declare that this Master Thesis has been written by myself. I have not used any other than the listed sources, nor have I received any unauthorized help.\\\\
 I hereby certify that I have not submitted this Master Thesis in any form (to a reviewer for assessment) either in Austria or abroad.\\\\
+I have used the ChatGPT AI model for proofreading purposes, and every result was carefully evaluated by me before adaption; I affirm that no content was copied directly.\\\\
 Furthermore, I assure that the (printed and electronic) copies I have submitted are identical.
 \\\\\\
 Date: \hspace{6cm} Signature:\\
+
+% --- Acknowledgement ----------------------------------------------------
+\cleardoublepage
+\chapter*{Acknowledgement}
+\input{chapters/0_acknowledgement/0_root.tex}
 
 % --- English Abstract ----------------------------------------------------
 \cleardoublepage
@@ -206,17 +212,19 @@ Date: \hspace{6cm} Signature:\\
 
 \begin{table*}[htbp]
 		\begin{tabular}{ll}
+			API & Application Programming Interface \\
+			AS & AssemblyScript \\
 			AOT & Ahead-of-time compilation \\
 			DOM & Document Object Model \\
    			JIT & Just-in-time compilation \\
+			JS & JavaScript \\
 			LLVM & Low Level Virtual Machine \\
 			POSIX & Portable Operating System Interface \\
 			SIMD & Single Instruction Multiple Data \\
    			VM & Virtual Machine \\
-			WASM & WebAssembly \\
 			WASI & WebAssembly System Interface \\
+			WASM & WebAssembly \\
 			WAT  &  WebAssembly Text Format \\
-			WIT  &  WebAssembly Interface Type \\  
 		\end{tabular}
 \end{table*}
 
@@ -248,11 +256,10 @@ Date: \hspace{6cm} Signature:\\
 \input{chapters/3_runtimes/0_root.tex}
 \input{chapters/4_poc/0_root.tex}
 \input{chapters/5_benchmarks/0_root.tex}
-\input{chapters/6_limitations/0_root.tex}
-\input{chapters/7_vendor-lock-in/0_root.tex}
-\input{chapters/8_related-work/0_root.tex}
-\input{chapters/9_conclusion/0_root.tex}
-\input{chapters/10_future-work/0_root.tex}
+\input{chapters/6_vendor-lock-in/0_root.tex}
+\input{chapters/7_related-work/0_root.tex}
+\input{chapters/8_conclusion/0_root.tex}
+\input{chapters/9_future-work/0_root.tex}
 
 %\clearpage
 

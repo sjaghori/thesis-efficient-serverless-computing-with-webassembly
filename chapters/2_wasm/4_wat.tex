@@ -1,7 +1,7 @@
 \subsection{WebAssembly Text Format (WAT)}
 \label{subsec:wasm-text-format}
 
-WebAssembly Text Format (WAT) \cite{webassemblycommunitygroup_2023_webassembly} is a textual human-readable representation of a Wasm module. Unlike the binary representation of a Wasm module, which is designed to be efficient in size and fast to decode, the textual format is designed as an intermediate form for humans to read and understand or explain how the module works. The WAT format is not intended to be written by developers, but it is easier to understand and therefore, it is commonly used for specification descriptions and examples. Moreover, the WAT format has (\texttt{.wat}) file extension and there are tools like wabt\cite{webassembly_2020_webassemblywabt} that can convert a WAT file into a Wasm binary (\texttt{.wasm}) file and vice versa.
+WebAssembly Text Format (WAT) \cite{webassemblycommunitygroup_2023_webassembly} is a textual human-readable representation of a \gls{WebAssembly} module. Unlike the binary representation of a Wasm module, which is designed to be efficient in size and fast to decode, the textual format is designed as an intermediate form for humans to read and understand or explain how the module works. The WAT format is not intended to be written by developers, but it is easier to understand and therefore, it is commonly used for specification descriptions and examples. Moreover, the WAT format has (\texttt{.wat}) file extension and there are tools like wabt\cite{webassembly_2020_webassemblywabt} that can convert a WAT file into a Wasm binary (\texttt{.wasm}) file and vice versa.
 
 The modules follow an S-expression format. S-expressions are simple textual formats representing a tree structure, where each parentheses \texttt{(...)} represents a node in the tree \cite{mozillacorporation_2023_understanding}. 
 
@@ -11,11 +11,11 @@ Listing \ref{lst:empty-wat-example} shows an example of an empty but valid Wasm 
 (module)
 \end{lstlisting}
 %
-Moving on to a Wasm module that contains more functionality, listing \ref{lst:add-function-wat} shows an internal function \texttt{\$add\_numbers} that takes two parameters of type \texttt{i32} and returns the sum of the two parameters. The function is then exported as \texttt{add\_numbers} and can be called from the host runtime. 
+Moving on to a Wasm module that contains more functionality, listing \ref{lst:add-function-wat} shows an internal function \texttt{\$add\_numbers} that takes two parameters of type \texttt{i32} (32 bit integers) and returns the sum of the two parameters. The function is then exported as \texttt{add\_numbers} and can be called from the host runtime. 
 
-For this example, we use \texttt{i32} as the type of the parameters and the return value, however, WebAssembly supports \texttt{i64} and floating point numbers as well. WebAssembly does not support non primitive data types such as objects and strings, but there are proposals \ref{subsec:reference-types} to add ways to work with this types.
+For this example, we use 32 bit integer (\texttt{i32}) as the type of the parameters and the return value, however, WebAssembly supports 64 bit integers (\texttt{i64}) and floating point numbers as well. WebAssembly does not support non primitive data types such as objects and strings, but there are proposals \ref{sec:reference-types} to add ways to work with this types.
 
-WebAssembly modules use stacks to pass parameters to functions and return values from functions. The stack is a fundamental data structure that follows the Last In First Out (LIFO) principle, meaning that the last item that was added to the stack is the first item to be removed. The stack is used to pass parameters to functions and return values from functions. 
+WebAssembly modules use stacks \cite[sec. 4.2.14]{webassemblycommunitygroup_2023_webassembly} to pass parameters to functions and return values from functions. The stack is a fundamental data structure that follows the Last In First Out (LIFO) principle, meaning that the last item that was added to the stack is the first item to be removed. The stack is used to pass parameters to functions and return values from functions. 
 %
 \begin{lstlisting}[frame=lines, style=Wasm, caption={A simple functions that adds two numbers and returns the value}, showstringspaces=false, captionpos=b, label={lst:add-function-wat}]
 (module
@@ -33,7 +33,7 @@ WebAssembly modules use stacks to pass parameters to functions and return values
 )
 \end{lstlisting}
 %
-In listing \ref{lst:add-function-wat}, the first \texttt{local.get} instruction is used to get the value of a local variable and push it to the stack. Then the second \texttt{local.get} pushes the second number to the stack. The \texttt{i32.add} instruction pops the two values from the stack, executes the operation, in this case it adds them together and pushes the result back to the stack. The \texttt{result} keyword is used to indicate the return value of the function. Figure \ref{fig:stack_wasm_add_num} shows the explained process of adding the numbers 5 and 10.
+In listing \ref{lst:add-function-wat}, the first \texttt{local.get} instruction is used to get the value of a local variable and push it to the stack. Then the second \texttt{local.get} pushes the second number to the stack. The \texttt{i32.add} instruction pops the two values from the stack, executes the operation, in this case it adds them together and pushes the result back to the stack. The \texttt{result} keyword is used to indicate the return value of the function. Figure \ref{fig:stack_wasm_add_num} shows the explained process of adding the numbers 5 and 10 resulting in 15.
 
 \begin{figure}[H]
   \centering
