@@ -1,0 +1,18 @@
+[package]
+name = "wasi_serverless"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+columns = 80
+
+[profile.release]
+opt-level = 3
+
+[dependencies]
+actix-web = "4.3.1"
+wasmtime = "9.0.1"
+wasmtime-wasi = "9.0.1"
+wasi-common = "9.0.1"
+anyhow = "1.0.71"

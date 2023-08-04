@@ -1,0 +1,14 @@
+{
+  "name": "wasi-hello-world",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "asc hello-world.ts --target helloworld",
+    "wasmtime": "wasmtime ./build/hello-world.wasm"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@assemblyscript/wasi-shim": "^0.1.0",
+    "assemblyscript": "^0.26.5"
+  }
+}

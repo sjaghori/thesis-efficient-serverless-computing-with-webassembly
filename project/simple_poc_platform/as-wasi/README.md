@@ -1,0 +1,1 @@
+This sub module only serves as a simple hello world with wasi32 target
