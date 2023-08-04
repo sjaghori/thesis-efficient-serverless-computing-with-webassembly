@@ -1,9 +1,9 @@
 \chapter{WebAssembly Serverless Platform Design}
 \label{chap:poc}
 
-In this chapter, the proof of concept for a simple \gls{serverless} compute platform using WebAssembly technology will be explored. For simplicity, the platform runs on an HTTP server to redirect HTTP requests to specific WebAssembly modules. For this, we will use Wasmtime \cite{bytecodealliance_2022_wasmtime} as the WebAssembly runtime, but we could also use Wasmer \cite{wasmerinc_2023_wasmer}. Since Wasmtime does only have Rust integration, we will use the Rust language along with the popular Rust web framework, "Actix-web \cite{actixteam_actix}", due to its lightweight and fast nature. As mentioned in the previous chapter, Wasmtime offers excellent support for the latest WASI standards and features. 
+In this chapter, the proof of concept for a simple \gls{serverless} compute platform using \gls{WebAssembly} technology will be explored. For simplicity, the platform runs on an HTTP server to redirect HTTP requests to specific WebAssembly modules. For this, we will use Wasmtime \cite{bytecodealliance_2022_wasmtime} as the WebAssembly runtime, but we could also use Wasmer \cite{wasmerinc_2023_wasmer}. Since Wasmtime does only have Rust integration, we will use the Rust language along with the popular Rust web framework, "Actix-web \cite{actixteam_actix}", due to its lightweight and fast nature. As mentioned in the previous chapter, Wasmtime offers excellent support for the latest WASI standards and features. 
 
-As Figure \ref{fig:poc} illustrates, this proof of concept assumes that there will be a function registry service that stores the ahead-of-time compiled \gls{WebAssembly} binaries. Additionally, a serverless platform needs to be distributed; therefore, API gateways and load balancers are necessary to serve requests across the network. Nonetheless, this proof of concept primarily focuses on the WebAssembly aspect of the platform, leaving the deployment platform, API gateway and load balancers outside the scope of the discussion. 
+As \autoref{fig:poc} illustrates, this proof of concept assumes that there will be a function registry service that stores the ahead-of-time compiled \gls{WebAssembly} binaries. Additionally, a serverless platform needs to be distributed; therefore, API gateways and load balancers are necessary to serve requests across the network. Nonetheless, this proof of concept primarily focuses on the WebAssembly aspect of the platform, leaving the deployment platform, API gateway and load balancers outside the scope of the discussion. 
 %
 \begin{figure}[htbp]
 	\centering
@@ -12,7 +12,7 @@ As Figure \ref{fig:poc} illustrates, this proof of concept assumes that there wi
 	\label{fig:poc}
 \end{figure}
 %
-The platform has a single endpoint that accepts HTTP requests with a Wasm module name in the path and query parameters. The endpoint will then load the Wasm module from the same directory and call the defined \texttt{invoke\_wasm\_module} in listing \ref{lst:poc-invocation}. This function is the main part of our platform, it is responsible for creating a Wasmtime runtime engine and linker, adding the WASI APIs to the linker. The function then creates a WASI context with the query parameters and loads the module with the file name. The linker is used to link the Wasm module with the later created instance together. There is also a buffer that will be used to store the response from the Wasm module.
+The platform has a single endpoint that accepts HTTP requests with a Wasm module name in the path and query parameters. The endpoint will then load the Wasm module from the same directory and call the defined \texttt{invoke\_wasm\_module} in \autoref{lst:poc-invocation}. This function is the main part of our platform, it is responsible for creating a Wasmtime runtime engine and linker, adding the WASI APIs to the linker. The function then creates a WASI context with the query parameters and loads the module with the file name. The linker is used to link the Wasm module with the later created instance together. There is also a buffer that will be used to store the response from the Wasm module.
 %
 \begin{lstlisting}[frame=lines, style=Rust, caption={invocation function}, showstringspaces=false, label={lst:poc-invocation}, captionpos=b]
 fn invoke_wasm_module(wasm_module_name: String, params: HashMap<String, String>) -> Result<String> {
@@ -54,7 +54,7 @@ fn invoke_wasm_module(wasm_module_name: String, params: HashMap<String, String>)
 }
 \end{lstlisting}
 %
-Directly after, we then call the \texttt{run\_wasm\_module} function shown in listing \ref{lst:poc-start}. This is where the linker links the module with the newly created instance. The instance is used to search for the start function, the "\_start" function is the starting point of the Wasm modules. It will call the function and return the result. The result is then stored in the buffer and returned to the caller.
+Directly after, we then call the \texttt{run\_wasm\_module} function shown in \autoref{lst:poc-start}. This is where the linker links the module with the newly created instance. The instance is used to search for the start function, the "\_start" function is the starting point of the Wasm modules. It will call the function and return the result. The result is then stored in the buffer and returned to the caller.
 %
 \begin{lstlisting}[frame=lines, style=Rust, caption={calling the wasm start function}, showstringspaces=false, label={lst:poc-start}, captionpos=b]
 fn run_wasm_module(
@@ -68,7 +68,7 @@ fn run_wasm_module(
 }
 \end{lstlisting}
 %
-To test the platform, we can use any WASI complaint Wasm binary. The following AssemblyScript file contains a simple statement that outputs "Hello World!" on the terminal. The AssemblyScript compiler will compile the file to a WASI complaint Wasm binary. For this we will also need the "wasi-shim" which is a standalone dependency.
+To test the platform, we can use any WASI complaint Wasm binary. The following Assembly-Script file contains a simple statement that outputs "Hello World!" on the terminal. The AssemblyScript compiler will compile the file to a WASI complaint Wasm binary. For this we will also need the "wasi-shim" which is a standalone dependency.
 %
 \begin{lstlisting}[frame=lines, style=JavaScript, caption={AssemblyScript file with a simple console output}, showstringspaces=false, label={lst:as-hello-world}, captionpos=b]
 // calling AssemblyScript's console.log, 

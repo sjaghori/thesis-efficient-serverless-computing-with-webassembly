@@ -1,0 +1,9 @@
+# This file describes a Fastly Compute@Edge package. To learn more visit:
+# https://developer.fastly.com/reference/fastly-toml/
+
+authors = ["jaghori.sasan@outlook.com"]
+description = ""
+language = "go"
+manifest_version = 2
+name = "go_fibonacci_recursive_fastly"
+service_id = "W4RlhTFfUh79JfrwAPfNZ7"

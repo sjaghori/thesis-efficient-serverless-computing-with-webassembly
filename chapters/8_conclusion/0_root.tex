@@ -1,5 +1,16 @@
 \chapter{Conclusion}
 \label{chap:conclusion}
 
-\section{Platform Limitations}
-\label{sec:platform-limitations}
+In this thesis, we have evaluated the WebAssembly technology for serverless computing. The results of this work show a significant improvement in the cold start time of serverless functions by utilizing WebAssembly as the runtime environment. The main challenge for the adaptation of WebAssembly in mainstream cloud computing is the current support of the technology. While the support for WebAssembly is growing, it still lacks crucial features such as direct access to the system clock or the ability to spawn new threads. Another limitation is the lack of support for the Java language, which is widely used in the industry.
+
+Aside from the current limitations, which are expected to be resolved in the near future through proposals, WebAssembly is a promising technology for serverless computing.
+
+We have demonstrated how easy it is to integrate a WebAssembly runtime environment into an existing serverless platform. With the help of the runtime API, we can configure the runtime environment to our needs. 
+
+Another important aspect of this work is Vendor Lock-in. In summary, we can split vendor lock-in into two categories. The first one is the lock-in to a specific cloud provider service offering, which is not influenced by the employed technology. The second category is the lock-in to a specific technology. In the case of WebAssembly, we see no lock-in to a specific technology, as WebAssembly acts as the underlying runtime. We have evaluated the adapter pattern, which can be used to abstract the underlying runtime and allow the developer to switch between different cloud providers.
+
+\section{A Note on Sustainability}
+\label{sec:sustainability}
+
+While sustainability is a broad topic and not the focus of this thesis, it is a factor to consider when it comes to choosing a technology, especially considering the impact of data centers power consumption which accounts for approximately 1\% to 1.25\% of the world's total consumption \cite{patros2021sustainable}.
+Serverless functions are typically short-lived, which means that the cold start time plays a major role in the total execution time. As shown by the results in the evaluation, by utilizing WebAssembly, the cold start time can be almost eliminated, making serverless functions more sustainable in that area. 

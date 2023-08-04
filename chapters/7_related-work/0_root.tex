@@ -1,3 +1,46 @@
 \chapter{Related Work}
 \label{chap:related-work}
 
+This chapter presents related approaches for handling cold start problem in serverless computing such as pre-warming, caching, and container reuse. It also presents related work on WebAssembly and V8 isolates.
+
+\section{Workaround Approaches}
+\label{sec:workaround-approaches}
+
+There is a lot of research in the area of mitigating cold start problem in serverless computing. This section presents the incremental approaches, techniques to work around the cold start problem.
+
+\subsection{Pre-warming}
+\label{subsec:pre-warming}
+
+In \cite{lin2019mitigating} Glikson and Lin propose to maintain a pool of pre-provisioned "warm" container, ready for invocation with zero cold start time. They implemented the pool for \gls{Knative} platform. The authors show that the first request is 2.3 times faster, however this approach still suffers from the cold start problem, because a burst of requests can still exhaust the pool of warm containers. Moreover, the pre-warming approach is not cost effective, because the user is billed for the idle containers. 
+
+\subsection{Prediction}
+\label{subsec:prediction}
+
+With the current state of serverless platforms, the vendors have a fixed keep-alive policy, for example AWS Lambda functions shuts down after 7 minutes of inactivity. Shahrad et al. describes an improved alternative to the fixed keep-alive policy \cite{254430} by observing the entire functions workload. The results of the observation show that functions are invoked very infrequently, in fact by an 8-order-of-magnitude in terms of range of invocation frequencies. Based on this results the authors propose policies by set of rules that significantly reduces the number of function cold starts. The first part is the histogram policy, the algorithm observes and captures the times and frequency of function invocation. On periodic invocations the algorithm updates the histogram and predicts the next invocation time. With this data the algorithm can predict the next invocation time and keep the function alive or pre-warm the function until the next invocation.
+On the other hand, if there is too many out of bound invocations, the prediction model with histogram won't work, thus the algorithm will switch to time series forecast. The authors show that only 18\% of the functions are invoked infrequently and the rest 82\% of the functions are invoked within 1 minute average.
+
+This approach is very promising, especially for the existing serverless platforms that have a slow cold start time with fixed keep-alive policy. Moreover, it is also framework independent, thus it can also be applied additionally to our WebAssembly approach.
+
+\subsection{Container Reuse}
+\label{subsec:container-reuse}
+
+In \cite{stenbom_2019_meng} Oliver Stenbom explores the idea of checkpointing and restoring a container while it runs. The thesis also considers the added complexity to the setup. The authors results show that restoring NodeJS, Python and Java functions take 5-100ms to restore, 20 times faster than OpenWhisk's 2 second cold start. The author concludes that the approach is feasible and beneficial but requires more work to be production ready.
+
+While this approach demonstrates improved results, it comes with increased overhead and complexity. Moreover, the cold start time (5-100ms) with this approach is inferior to our approach.
+
+\section{Containerless Compute - WebAssembly}
+\label{sec:containerless}
+
+Now in this section we will go through the WebAssembly and V8 isolates related work. 
+
+Philipp Gackstatter et al. designed and implemented a prototype for WebAssembly execution in Apache OpenWhisk \cite{gackstatter_2022_pushing,2016_apache}. The authors show that the cold start latency can be reduced by up to 99.5\% compared to the current OpenWhisk implementation. The authors also show that the WebAssembly approach is more cost effective than the current OpenWhisk implementation. The authors conclude that the WebAssembly approach is a promising alternative to the current OpenWhisk implementation.
+
+\subsection{Fastly Compute@Edge}
+\label{subsec:fastly-compute-at-edge}
+
+Fastly Compute@Edge \cite{fastlyinc_serverless} is a leading WebAssembly-based serverless platform. The platform uses the Wasmtime runtime, the successor to its Lucet runtime, and is actively collaborating with Bytecode Alliance to further develop it. Fastly Compute@Edge is a key focus of evaluation in this thesis. The results of the evaluation show a consistently fast cold start of 50-350 microseconds, which represents a significant improvement compared to the above-mentioned approaches. Currently, the platform only officially supports Rust, AssemblyScript, and JavaScript.
+
+\subsection{Cloudflare Workers}
+\label{subsec:cloudflare-workers}
+
+Cloudflare Workers is a serverless platform offering from Cloudflare that uses Google's V8 Engine to run JavaScript code with V8 isolates \cite{partovi_2020_eliminating}. The platform's performance is also evaluated in this thesis. With V8 isolates, the platform achieves a cold start time of 5-10 milliseconds, which is much faster than traditional serverless offerings but slower than Fastly Compute@Edge. Additionally, the platform supports WebAssembly, profiting from the V8 Engine's built-in WebAssembly runtime. Cloudflare is actively working on projects like workers-rs to facilitate easier WebAssembly binding and the support of languages such as Rust and Go with the help of WebAssembly.

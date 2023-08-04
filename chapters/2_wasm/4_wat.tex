@@ -11,7 +11,7 @@ The modules follow an S-expression format. S-expressions are simple textual form
 (module)
 \end{lstlisting}
 %
-Moving on to a Wasm module that contains more functionality, listing \ref{lst:add-function-wat} shows an internal function \texttt{\$add\_numbers} that takes two parameters of type \texttt{i32} (32 bit integers) and returns the sum of the two parameters. The function is then exported as \texttt{add\_numbers} and can be called from the host runtime. 
+Moving on to a Wasm module that contains more functionality, \autoref{lst:add-function-wat} shows an internal function \texttt{\$add\_numbers} that takes two parameters of type \texttt{i32} (32 bit integers) and returns the sum of the two parameters. The function is then exported as \texttt{add\_numbers} and can be called from the host runtime. 
 
 For this example, we use 32 bit integer (\texttt{i32}) as the type of the parameters and the return value, however, WebAssembly supports 64 bit integers (\texttt{i64}) and floating point numbers as well. WebAssembly does not support non primitive data types such as objects and strings, but there are proposals \ref{sec:reference-types} to add ways to work with this types.
 
@@ -33,7 +33,7 @@ WebAssembly modules use stacks \cite[sec. 4.2.14]{webassemblycommunitygroup_2023
 )
 \end{lstlisting}
 %
-In listing \ref{lst:add-function-wat}, the first \texttt{local.get} instruction is used to get the value of a local variable and push it to the stack. Then the second \texttt{local.get} pushes the second number to the stack. The \texttt{i32.add} instruction pops the two values from the stack, executes the operation, in this case it adds them together and pushes the result back to the stack. The \texttt{result} keyword is used to indicate the return value of the function. Figure \ref{fig:stack_wasm_add_num} shows the explained process of adding the numbers 5 and 10 resulting in 15.
+In \autoref{lst:add-function-wat}, the first \texttt{local.get} instruction is used to get the value of a local variable and push it to the stack. Then the second \texttt{local.get} pushes the second number to the stack. The \texttt{i32.add} instruction pops the two values from the stack, executes the operation, in this case it adds them together and pushes the result back to the stack. The \texttt{result} keyword is used to indicate the return value of the function. \autoref{fig:stack_wasm_add_num} shows the explained process of adding the numbers 5 and 10 resulting in 15.
 
 \begin{figure}[H]
   \centering

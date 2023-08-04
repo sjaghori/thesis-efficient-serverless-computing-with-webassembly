@@ -1,7 +1,7 @@
 \chapter{Introduction}
 \label{chap:intro}
 
-In recent years, \gls{serverless} computing has emerged as a popular paradigm for building scalable and cost-efficient cloud applications. \Gls{serverless} platforms allow developers to focus on writing code without worrying about server management or infrastructure scaling, while users only pay for the computed time.
+In recent years, \gls{serverless} computing has emerged as a popular paradigm for building scalable and cost-efficient cloud applications. \Gls{serverless} platforms allow developers to focus on writing code without worrying about server management or infrastructure scaling, while users only pay for the computing time.
 
 While \gls{serverless} computing is an effective model for managing unpredictable and bursty
 workloads, it has limitations in supporting latency-critical applications in the IoT, mobile or gaming segments due to cold-start latencies of several hundred milliseconds or more \cite{gackstatter_2022_pushing}. 
@@ -10,7 +10,7 @@ An \gls{edge computing} paradigm has emerged to address this issue, which places
 
 The underlying issue can be referred to the current runtime environments for \gls{serverless} functions, which primarily rely on \Gls{LXC-Container} technologies like Docker or microVMs like Firecracker. To address these challenges, a more innovative approach would be to execute users' code efficiently and minimize cold start impacts, for instance by replacing heavier containers with lighter alternatives that maintain the advantages of container isolation.
 
-The same requirements for isolation, fast execution and security apply to \gls{WebAssembly} as well. \Gls{WebAssembly} (Wasm) has gained traction as a portable binary format that is executed in an isolated sandbox environment. Wasm is a compilation target, originally designed for browser applications to run e.g. C++ compiled code at near-native speed. This makes WebAssembly the perfect candidate for server-side code execution especially for serverless computing where startup times play a huge role. However, while Wasm was developed with browser execution in mind, standardized system APIs are needed to enable its use on the server side in order to access basic system resources like standard output or file input. Bytecode Alliance is working on the WebAssembly standard and a system interface standard called WASI \cite{webassembly_2023_webassemblywasi}.
+The same requirements for isolation, fast execution and security apply to WebAssembly as well. WebAssembly (\Gls{WebAssembly}) has gained traction as a portable binary format that is executed in an isolated sandbox environment. Wasm is a compilation target, originally designed for browser applications to run e.g. C++ compiled code at near-native speed. This makes WebAssembly the perfect candidate for server-side code execution especially for serverless computing where startup times play a huge role. However, while Wasm was developed with browser execution in mind, standardized system APIs are needed to enable its use on the server side in order to access basic system resources like standard output or file input. Bytecode Alliance is working on the WebAssembly standard and a system interface standard called WASI \cite{webassembly_2023_webassemblywasi}.
 
 \begin{figure}[H]
 	\centering

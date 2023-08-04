@@ -6,7 +6,7 @@ The core WebAssembly language remains independent of its surrounding environment
 
 The WebAssembly System Interface (abbreviated as WASI) in short is a standard interface for WebAssembly modules to interact with their host environments, such as operating systems, without being tied to any specific host. This allows WebAssembly modules to be executed securely and portably across a wide range of environments. 
 
-The aim of WASI is to be a highly modular set of system interfaces \cite{clark_2022_wasi}, which includes low-level interfaces like \gls{POSIX} functions and high-level interfaces like neural networks, cryptography and so on. 
+The aim of WASI is to be a highly modular set of system interfaces \cite{clark_2022_wasi}, which includes low-level interfaces like \gls{POSIX} functions and high-level interfaces like neural networks, crypto-graphy and so on. 
 It is anticipated that more high-level APIs will be incorporated in the future depending on the priorities of the ecosystem. These interfaces must adhere to capability-based security principles to preserve the sandbox's integrity. Additionally, the interfaces should be portable across major operating systems, although system-specific interfaces may be acceptable for certain 
 narrow use cases.
 
@@ -16,13 +16,13 @@ Currently, the community is actively working on Preview2, however, each stage wi
 \subsection{WASI Software Architecture}
 \label{subsec:wasi-software-architecture}
 
-The WASI software architecture is similar to the native counterpart, as shown in figure \ref{fig:wasi-software-architecture}, at the top of the stack, we have the User application, this can be serverless function, a microservice, a web application, or any other application. 
+The WASI software architecture is similar to the native counterpart, as shown in \autoref{fig:wasi-software-architecture}, at the top of the stack, we have the User application, this can be serverless function, a microservice, a web application, or any other application. 
 
 Then we have the \gls{libc} implementation, which is responsible for providing the standard C library functions to the user application. 
 
 "The musl-based libc interface, implemented on top of a libpreopen-like layer and a system call wrapper layer as noted in \cite[para. 1]{gohman_2019_wasi}."
 
-The system call wrappers are responsible for calling the actual WASI implementation (see figure \ref{fig:wasi-software-architecture}, highlighted in green). Each WASI implementation is specific to the target environment, for example, the WASI implementation for Linux is different from the WASI implementation for Windows. 
+The system call wrappers are responsible for calling the actual WASI implementation (see \autoref{fig:wasi-software-architecture}, highlighted in green). Each WASI implementation is specific to the target environment, for example, the WASI implementation for Linux is different from the WASI implementation for Windows. 
 
 \begin{figure}[htbp]
 	\centering
@@ -46,8 +46,8 @@ The JavaScript glue code would subsequently communicate with the browser, which 
     \label{fig:emscripten}
 \end{figure}
 
-Emscripten did a great job for compiling C/C++ code into browser compatible WebAssembly modules and \gls{JS glue code}. However, when users began to seek ways of running WebAssembly outside of a browser environment, the first approach was to enable the execution of Emscripten-compiled code on the corresponding environment. To achieve this, the runtimes would have to develop their own implementations of the functions in the JS glue code. However, this presented a challenge as the interface provided by the \gls{JS glue code} was not intended to be a standard or public-facing interface. 
-It was designed to serve a specific purpose, and creating a portable interface was not part of its intended design. The above figure \ref{fig:emscripten} shows the connection between the browser, the glue code and the Wasm module. 
+Emscripten did a great job for compiling C/C++ code into browser compatible \gls{WebAssembly} modules and \gls{JS glue code}. However, when users began to seek ways of running \hbox{WebAssembly} outside of a browser environment, the first approach was to enable the execution of Emscripten-compiled code on the corresponding environment. To achieve this, the runtimes would have to develop their own implementations of the functions in the JS glue code. However, this presented a challenge as the interface provided by the \gls{JS glue code} was not intended to be a standard or public-facing interface. 
+It was designed to serve a specific purpose, and creating a portable interface was not part of its intended design. The above \autoref{fig:emscripten} shows the connection between the browser, the glue code and the Wasm module. 
 
 Emscripten aims to improve the standard by using WASI APIs as extensively as possible in order to minimize unnecessary API differences \cite{zakai_2019_outside}. 
 
@@ -59,7 +59,7 @@ The first system API which the WASI community has been working on is the \gls{PO
 It involves essential functionalities like file operations, processes, threads, 
 shared memory, networking, regular expressions and so on. WASI will consist of a collection of low level and high level APIs, which aim to be as portable as possible. 
 
-Figure \ref{fig:wasi-portability} illustrates that a source code can be compiled with different versions of \gls{libc} to target various platforms. However, in the case of WASI, the same source code can be compiled into a portable binary that targets a virtual host platform called "wasm32-unknown-wasi". 
+\autoref{fig:wasi-portability} illustrates that a source code can be compiled with different versions of \gls{libc} to target various platforms. However, in the case of WASI, the same source code can be compiled into a portable binary that targets a virtual host platform called "wasm32-unknown-wasi". 
 This target comprises three parts: the underlying architecture "wasm32", the vendor (which usually specifies the platform or hardware vendor; in this case, it is "unknown"), and the operating system ("wasi").
 
 Comparing the left and right sides of the figure, we can observe that the Wasm binary runs on a WASI runtime, also known as a WASI engine. The implementation details of the underlying OS are abstracted away from the Wasm binary targeting WASI. For instance, suppose a small C program that opens a file, reads its contents, and prints them to the console. In that case, on a Linux system, the program would call the "open" syscall. 
@@ -73,7 +73,7 @@ The WASI module expects the engine to create a file descriptor and return it to 
     \label{fig:wasi-portability}
 \end{figure}
 
-Aside from the information provided in Figure \ref{fig:wasi-portability}, it should be noted that because of WASI's portability, the modules are not confined to a particular host platform. They have the flexibility to be integrated into an application, function as a plugin, or run as a serverless function in the cloud, as referenced in \cite{clark_2022_wasmtime}, as long as the host runtime supports the required APIs.
+Aside from the information provided in \autoref{fig:wasi-portability}, it should be noted that because of WASI's portability, the modules are not confined to a particular host platform. They have the flexibility to be integrated into an application, function as a plugin, or run as a serverless function in the cloud, as referenced in \cite{clark_2022_wasmtime}, as long as the host runtime supports the required APIs.
 
 \subsection{WASI Security Model}
 \label{subsec:wasi-security-model}

@@ -46,6 +46,8 @@
 
 \usepackage{geometry} % define pagesize in more detail
 
+\usepackage{multirow}
+
 % --- Settings for header and footer ---------------------------------
 \usepackage{scrlayer-scrpage}
 \clearpairofpagestyles
@@ -168,7 +170,7 @@
 
 \hspace*{-1.0cm} \textbf{Date:} \\
 \vspace{0.2cm}
-\hspace*{-1.0cm} 01.06.2023 \\
+\hspace*{-1.0cm} 01.08.2023 \\
 
 \end{center}
 \end{titlepage}
@@ -216,11 +218,13 @@ Date: \hspace{6cm} Signature:\\
 			AS & AssemblyScript \\
 			AOT & Ahead-of-time compilation \\
 			DOM & Document Object Model \\
-   			JIT & Just-in-time compilation \\
+   			ICMP & Internet Control Message Protocol \\
+			JIT & Just-in-time compilation \\
 			JS & JavaScript \\
 			LLVM & Low Level Virtual Machine \\
 			POSIX & Portable Operating System Interface \\
 			SIMD & Single Instruction Multiple Data \\
+			TLS & Transport Layer Security \\
    			VM & Virtual Machine \\
 			WASI & WebAssembly System Interface \\
 			WASM & WebAssembly \\
@@ -303,8 +307,11 @@ Date: \hspace{6cm} Signature:\\
 \newpage
 \backmatter
 \appendix
+\renewcommand\thefigure{\thesection.\arabic{figure}} 
+\setcounter{figure}{0}
 \begin{appendices}
 \chapter{Appendix}
+\label{chap:appendix}
 \input{chapters/99_appendices/appendices.tex}
 
 

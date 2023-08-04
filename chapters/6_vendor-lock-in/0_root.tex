@@ -6,7 +6,7 @@ Cloud computing's vendor lock-in issue arises when customers become reliant (i.e
 There are two primary factors contributing to the difficulty of achieving interoperability, portability, compliance, trust, and security in cloud computing. The first is the absence of universally adopted standards, APIs, or interfaces that can leverage the ever-changing range of cloud services. The second is the lack of standardized practices for deployment, maintenance, and configuration \cite{oparamartins_2014_critical}, which creates challenges for ensuring consistency and compatibility across cloud environments. 
 
 \section{Key Motivations for shifting to a new Cloud Provider}
-There are various reasons why a customer may contemplate changing their service provider:
+There are various reasons why a customer may contemplate changing their service provider, the following are inspired by \cite{oparamartins_2014_critical}:
 
 \begin{enumerate}
     \item Inconsistent or unreliable service quality
@@ -27,10 +27,10 @@ Another alternative is the collaboration between cloud providers. An excellent e
 To evaluate the feasibility of switching \Gls{FaaS} providers, it is necessary to examine the modifications needed for the function codebase as well as the adjustments required for the execution configuration, deployment, and triggers.
 
 \subsubsection{Differences in handler function}
-Each \gls{cloud computing} service provider has its own unique function signature that must be adhered to for the code to be executed on their respective cloud platforms. These signatures can vary slightly between different providers. The subsequent Javascript code examples illustrate how input can be read from the event and responses can be sent back for each cloud provider. These examples assume that the function is triggered through an HTTP POST request and with a JSON body conaining "myName" property. \\
+Each \gls{cloud computing} service provider has its own unique function signature that must be adhered to for the code to be executed on their respective cloud platforms. These signatures can vary slightly between different providers. The subsequent Javascript code examples illustrate how input can be read from the event and responses can be sent back for each cloud provider. These examples assume that the function is triggered through an HTTP POST request and with a JSON body containing "myName" property. \\
 The first example is an AWS Lambda function, the body is within the event object, the function resolves the request by returning an object that contains a "statusCode" property along with a body.
 
-\begin{lstlisting}[frame=lines, style=ES6, caption={Basic AWS Lambda handler function}, showstringspaces=false, captionpos=b,]
+\begin{lstlisting}[frame=lines, style=ES6, caption={Basic standard AWS Lambda handler function}, showstringspaces=false, captionpos=b,]
 export const handler = async(event, context) => {
   const input = JSON.parse(event.body);
   return {
@@ -104,13 +104,10 @@ The code snippet below illustrates the adapter configuration of a SvelteKit appl
 
 \begin{lstlisting}[frame=lines, style=ES6, caption={svelte.config.js SvelteKit adapter configuration}, showstringspaces=false, captionpos=b,]
 import adapter from '@sveltejs/adapter-cloudflare-workers';
- 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
   kit: {
-    adapter: adapter({
-      // adapter options go here
-    })
+    adapter: adapter({ /* adapter options go here */ })
   }
 };
  
@@ -121,7 +118,7 @@ export default config;
 
 Hono \cite{honocommunity_2023_hono} is a fast web framework which is also following the adapter pattern to allow developers to deploy their applications to various cloud providers without the need to change the business logic. The listing below shows a simple Hono endpoint which would look and work the same for Cloudflare Workers, Fastly Compute@Edge, Deno, Bun, Vercel, Lagon, AWS Lambda, and Node.js according to Hono js documentation \cite{honocommunity_2023_hono}. The only difference is in the adapter configuration and depending on the platform also the export line. 
 
-\begin{lstlisting}[frame=lines, style=ES6, caption={Hono Handler function}, showstringspaces=false, captionpos=b,]
+\begin{lstlisting}[frame=lines, style=ES6, caption={Standard Hono Handler function}, showstringspaces=false, captionpos=b,]
 import { Hono } from 'hono'
 const app = new Hono()
 
@@ -129,5 +126,3 @@ app.get('/', (c) => c.text('Hono!'))
 
 export default app
 \end{lstlisting}
-
-%\section{The role of Wasm Portability}

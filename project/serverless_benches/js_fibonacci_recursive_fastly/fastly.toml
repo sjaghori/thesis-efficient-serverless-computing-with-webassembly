@@ -1,0 +1,12 @@
+# This file describes a Fastly Compute@Edge package. To learn more visit:
+# https://developer.fastly.com/reference/fastly-toml/
+
+authors = ["jaghori.sasan@outlook.com"]
+description = ""
+language = "javascript"
+manifest_version = 2
+name = "js_fibonacci_recursive_fastly"
+service_id = "kua62QvNviqqfOAdyBrXl5"
+
+[scripts]
+  build = "npm run build"
